@@ -1,0 +1,29 @@
+---
+title: "Milestone 4 ggplot"
+author: "Elizabeth Guo"
+date: "10/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(janitor)
+```
+
+
+```{r}
+
+justicesdata <- read_xlsx("justicesdemdata/justicesdata.xlsx")
+
+
+justicesdata %>% 
+  count(nomrelig) %>% 
+  ggplot(aes(x = reorder(nomrelig, -n), y = n, fill = nomrelig)) +
+      geom_col()
+
+```
+
+
+
