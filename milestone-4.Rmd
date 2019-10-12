@@ -1,12 +1,12 @@
 ---
-title: "Milestone 4 ggplot"
+title: "Milestone 4"
 author: "Elizabeth Guo"
 date: "10/11/2019"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(readxl)
 library(janitor)
@@ -17,12 +17,36 @@ library(janitor)
 
 justicesdata <- read_xlsx("justicesdemdata/justicesdata.xlsx")
 
+newjusticesdata <- justicesdata %>% 
+  count(nomrelig) 
 
-justicesdata %>% 
-  count(nomrelig) %>% 
-  ggplot(aes(x = reorder(nomrelig, -n), y = n, fill = nomrelig)) +
-      geom_col()
+  newjusticesdata[1, 1] = "Baptist"
+  newjusticesdata[2, 1] = "Church of England"
+  newjusticesdata[3, 1] = "Congregationalist"
+  newjusticesdata[4, 1] = "Disciples of Christ"
+  newjusticesdata[5, 1] = "Dutch Reform"
+  newjusticesdata[6, 1] = "Episcopalian"
+  newjusticesdata[7, 1] = "Jewish"
+  newjusticesdata[8, 1] = "Lutheran"
+  newjusticesdata[9, 1] = "Methodist"
+  newjusticesdata[10, 1] = "Presbyterian"
+  newjusticesdata[11, 1] = "Protestant"
+  newjusticesdata[12, 1] = "Quaker"
+  newjusticesdata[13, 1] = "Roman Catholic"
+  newjusticesdata[14, 1] = "Unitarian"
+  newjusticesdata[15, 1] = "Unclear or unknown"
+  
 
+  ggplot(newjusticesdata, aes(x = reorder(nomrelig, -n), y = n, fill = nomrelig)) +
+      geom_col(show.legend = FALSE) +
+      theme(axis.text.x=element_text(angle=45,hjust=1,vjust=1)) +
+      labs(title = "Number of U.S. Supreme Court Justices of Each Religion (total 1789-2018)",
+           subtitle = "Based on data from Professor Lee Epstein, Washington University in St. Louis", 
+           x = "Religion", 
+           y = "Total Number of Justices")
+
+  
+  # In this plot, I have created a bar chart that shows how many justices appointed between 1789 to 2018 were of each religion. It is interesting that it is clear that Episcopalians have the highest number. Jewish justices, on the other hand, are relatively few. This is a total count of justices from 1789-2018. I decided to order the bar chart withs bars from highest to lowest height, and I also tilted the labels for aesthetic purposes.
 ```
 
 
